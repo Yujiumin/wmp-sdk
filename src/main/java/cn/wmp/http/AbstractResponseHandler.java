@@ -30,7 +30,7 @@ public abstract class AbstractResponseHandler<T> implements ResponseHandler<T> {
         StatusLine statusLine = httpResponse.getStatusLine();
         int statusCode = statusLine.getStatusCode();
         HttpEntity httpEntity = httpResponse.getEntity();
-        if (statusCode >= STATUS_CODE_OK) {
+        if (statusCode != STATUS_CODE_OK) {
             EntityUtils.consume(httpEntity);
             throw new HttpResponseException(statusCode, statusLine.getReasonPhrase());
         }
