@@ -3,13 +3,12 @@ package cn.wmp.http;
 import cn.wmp.handler.CheckEncryptedDataResponseHandler;
 import cn.wmp.handler.Code2SessionResponseHandler;
 import cn.wmp.handler.GetPaidUnionIdResponseHandler;
-import cn.wmp.model.CheckEncryptedDataRequestModel;
-import cn.wmp.model.Code2SessionRequestModel;
-import cn.wmp.model.GetPaidUnionIdRequestModel;
-import cn.wmp.model.GetPaidUnionIdResponseModel;
+import cn.wmp.handler.GetPluginOpenPidResponseHandler;
+import cn.wmp.model.*;
 import cn.wmp.request.CheckEncryptedDataRequest;
 import cn.wmp.request.Code2SessionRequest;
 import cn.wmp.request.GetPaidUnionIdRequest;
+import cn.wmp.request.GetPluginOpenPidRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,5 +63,15 @@ public class HttpClientTests {
                 .build();
         GetPaidUnionIdRequest getPaidUnionIdRequest = new GetPaidUnionIdRequest(getPaidUnionIdRequestModel);
         httpClient.execute(getPaidUnionIdRequest, new GetPaidUnionIdResponseHandler());
+    }
+
+    @Test
+    public void testGetPluginOpenPidRequest() throws IOException {
+        final GetPluginOpenPidRequestModel getPluginOpenPidRequestModel = GetPluginOpenPidRequestModel.builder()
+                .accessToken("")
+                .code("")
+                .build();
+        GetPluginOpenPidRequest getPluginOpenPidRequest = new GetPluginOpenPidRequest(getPluginOpenPidRequestModel);
+        httpClient.execute(getPluginOpenPidRequest, new GetPluginOpenPidResponseHandler());
     }
 }
