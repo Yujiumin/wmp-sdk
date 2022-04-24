@@ -1,21 +1,12 @@
 package cn.wmp.http;
 
-import cn.hutool.core.lang.TypeReference;
-import cn.hutool.json.JSONUtil;
-import cn.wmp.model.CodeToSessionModel;
+import cn.wmp.handler.Code2SessionResponseHandler;
+import cn.wmp.model.Code2SessionRequestModel;
+import cn.wmp.model.Code2SessionResponseModel;
 import cn.wmp.request.Code2SessionRequest;
-import jdk.nashorn.internal.parser.JSONParser;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Map;
 
 /**
  * @author Yujiumin
@@ -26,16 +17,16 @@ public class HttpClientTests {
 
     @Test
     public void test() throws Exception {
-        HttpClient httpClient = HttpClient.getInstance();
-        Executable executable = () -> (HttpUriRequest) new HttpGet("http://localhost:8080/my/test");
-        Map<String, Object> execute = httpClient.execute(executable, new AbstractResponseHandler<Map<String, Object>>() {
-            @Override
-            public Map<String, Object> handleResponse(String responseBody) {
-                return JSONUtil.toBean(responseBody, new TypeReference<Map<String, Object>>() {
-                }.getType(), false);
-            }
-        });
-        System.out.println(execute);
+        Code2SessionRequestModel code2SessionRequestModel = Code2SessionRequestModel.builder()
+                .appId("")
+                .secret("")
+                .jsCode("")
+                .grantType("authorization_code")
+                .build();
+        Code2SessionRequest code2SessionRequest = new Code2SessionRequest(code2SessionRequestModel);
+        final HttpClient httpClient = HttpClient.getInstance();
+        final Code2SessionResponseModel code2SessionResponseModel = httpClient.execute(code2SessionRequest, new Code2SessionResponseHandler());
+        System.out.println(code2SessionResponseModel);
     }
 
 }

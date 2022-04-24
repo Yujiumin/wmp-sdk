@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class CodeToSessionModel {
+public class Code2SessionRequestModel {
 
     /**
      * 小程序 appId

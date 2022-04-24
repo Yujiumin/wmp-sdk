@@ -1,7 +1,7 @@
 package cn.wmp.request;
 
 import cn.wmp.http.Executable;
-import cn.wmp.model.CodeToSessionModel;
+import cn.wmp.model.Code2SessionRequestModel;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
@@ -20,23 +20,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class Code2SessionRequest implements Executable {
 
-    private CodeToSessionModel codeToSessionModel;
+    private Code2SessionRequestModel code2SessionRequestModel;
 
     private HttpGet httpGet;
 
     private static final String URI_PATH = "https://api.weixin.qq.com/sns/jscode2session";
 
-    public Code2SessionRequest(CodeToSessionModel codeToSessionModel) throws URISyntaxException {
-        this.codeToSessionModel = codeToSessionModel;
+    public Code2SessionRequest(Code2SessionRequestModel code2SessionRequestModel) throws URISyntaxException {
+        this.code2SessionRequestModel = code2SessionRequestModel;
         init();
     }
 
     private void init() throws URISyntaxException {
         final URI uri = new URIBuilder(URI_PATH, StandardCharsets.UTF_8)
-                .addParameter("appid", codeToSessionModel.getAppId())
-                .addParameter("secret", codeToSessionModel.getSecret())
-                .addParameter("js_code", codeToSessionModel.getJsCode())
-                .addParameter("grant_type", codeToSessionModel.getGrantType())
+                .addParameter("appid", code2SessionRequestModel.getAppId())
+                .addParameter("secret", code2SessionRequestModel.getSecret())
+                .addParameter("js_code", code2SessionRequestModel.getJsCode())
+                .addParameter("grant_type", code2SessionRequestModel.getGrantType())
                 .build();
         this.httpGet = new HttpGet(uri);
     }
