@@ -1,15 +1,19 @@
 package cn.wmp.http;
 
+import cn.wmp.util.StreamUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Yujiumin
@@ -22,32 +26,23 @@ public abstract class AbstractResponseHandler<T> implements ResponseHandler<T> {
     private static final int CONTENT_LENGTH_2KB = 2048;
 
     @Override
-    public T handleResponse(HttpResponse httpResponse) throws ClientProtocolException, IOException {
+    public T handleResponse(HttpResponse httpResponse) throws IOException {
         StatusLine statusLine = httpResponse.getStatusLine();
         int statusCode = statusLine.getStatusCode();
-        if (statusCode != STATUS_CODE_OK) {
-            throw new RuntimeException("");
-        }
         HttpEntity httpEntity = httpResponse.getEntity();
+        if (statusCode >= STATUS_CODE_OK) {
+            EntityUtils.consume(httpEntity);
+            throw new HttpResponseException(statusCode, statusLine.getReasonPhrase());
+        }
         long contentLength = httpEntity.getContentLength();
         if (contentLength != -1 && contentLength < CONTENT_LENGTH_2KB) {
             String responseBody = EntityUtils.toString(httpEntity);
             return handleResponse(responseBody);
         }
 
-        StringBuilder responseBodyBuilder = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpEntity.getContent()))) {
-            while (true) {
-                String readLine = bufferedReader.readLine();
-                if (readLine != null) {
-                    responseBodyBuilder.append(readLine);
-                    continue;
-                }
-                break;
-            }
-        }
-
-        return handleResponse(responseBodyBuilder.toString());
+        final InputStream httpEntityContent = httpEntity.getContent();
+        String responseBody = StreamUtils.copyToString(httpEntityContent, StandardCharsets.UTF_8);
+        return handleResponse(responseBody);
     }
 
     /**
