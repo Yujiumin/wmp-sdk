@@ -16,7 +16,7 @@ public class HttpClient {
 
     private volatile static HttpClient httpClient;
 
-    private CloseableHttpClient closeableHttpClient;
+    private final CloseableHttpClient closeableHttpClient;
 
     private HttpClient() {
         closeableHttpClient = HttpClients.custom()
@@ -34,6 +34,15 @@ public class HttpClient {
         return httpClient;
     }
 
+    /**
+     * 执行http请求
+     *
+     * @param executable              可执行对象
+     * @param abstractResponseHandler 响应处理器
+     * @param <T>                     响应实体泛型
+     * @return 响应实体
+     * @throws IOException 执行异常
+     */
     public <T> T execute(Executable executable, AbstractResponseHandler<T> abstractResponseHandler) throws IOException {
         HttpUriRequest httpUriRequest = executable.getRequest();
         if (log.isInfoEnabled()) {

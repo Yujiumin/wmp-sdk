@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CheckEncryptedDataResponseHandler extends AbstractResponseHandler<CheckEncryptedDataResponseModel> {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public CheckEncryptedDataResponseHandler() {
-        this.objectMapper = new ObjectMapper();
+        this(new ObjectMapper());
     }
 
     public CheckEncryptedDataResponseHandler(ObjectMapper objectMapper) {

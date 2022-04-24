@@ -11,7 +11,7 @@ public interface Executable {
     /**
      * 获取请求对象
      *
-     * @return
+     * @return HTTP请求对象
      */
     HttpUriRequest getRequest();
 }

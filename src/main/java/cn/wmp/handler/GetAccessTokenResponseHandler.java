@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GetAccessTokenResponseHandler extends AbstractResponseHandler<GetAccessTokenResponseModel> {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public GetAccessTokenResponseHandler() {
         this(new ObjectMapper());

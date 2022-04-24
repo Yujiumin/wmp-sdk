@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Code2SessionResponseHandler extends AbstractResponseHandler<Code2SessionResponseModel> {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public Code2SessionResponseHandler() {
-        this.objectMapper = new ObjectMapper();
+       this(new ObjectMapper());
     }
 
     public Code2SessionResponseHandler(ObjectMapper objectMapper) {

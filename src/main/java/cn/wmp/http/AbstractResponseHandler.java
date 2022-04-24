@@ -4,15 +4,12 @@ import cn.wmp.util.StreamUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -48,8 +45,8 @@ public abstract class AbstractResponseHandler<T> implements ResponseHandler<T> {
     /**
      * 处理响应内容
      *
-     * @param responseBody
-     * @return
+     * @param responseBody 响应数据字符串
+     * @return 实体泛型
      */
     public abstract T handleResponse(String responseBody);
 }

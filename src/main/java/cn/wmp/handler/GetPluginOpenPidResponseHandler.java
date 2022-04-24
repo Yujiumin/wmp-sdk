@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GetPluginOpenPidResponseHandler extends AbstractResponseHandler<GetPluginOpenPidResponseModel> {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public GetPluginOpenPidResponseHandler() {
         this(new ObjectMapper());

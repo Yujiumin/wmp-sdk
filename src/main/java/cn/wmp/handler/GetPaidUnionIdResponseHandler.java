@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GetPaidUnionIdResponseHandler extends AbstractResponseHandler<GetPaidUnionIdResponseModel> {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public GetPaidUnionIdResponseHandler() {
         this(new ObjectMapper());
