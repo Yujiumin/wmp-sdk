@@ -1,5 +1,6 @@
 package cn.wmp.http;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -10,6 +11,7 @@ import java.io.IOException;
  * @author Yujiumin
  * @version 2022/04/18
  */
+@Slf4j
 public class HttpClient {
 
     private volatile static HttpClient httpClient;
@@ -34,6 +36,9 @@ public class HttpClient {
 
     public <T> T execute(Executable executable, AbstractResponseHandler<T> abstractResponseHandler) throws IOException {
         HttpUriRequest httpUriRequest = executable.getRequest();
+        if (log.isInfoEnabled()) {
+            log.info("httpRequest -> {}", httpUriRequest.toString());
+        }
         return closeableHttpClient.execute(httpUriRequest, abstractResponseHandler);
     }
 
