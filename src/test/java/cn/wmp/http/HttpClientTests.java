@@ -2,11 +2,14 @@ package cn.wmp.http;
 
 import cn.wmp.handler.CheckEncryptedDataResponseHandler;
 import cn.wmp.handler.Code2SessionResponseHandler;
+import cn.wmp.handler.GetPaidUnionIdResponseHandler;
 import cn.wmp.model.CheckEncryptedDataRequestModel;
 import cn.wmp.model.Code2SessionRequestModel;
-import cn.wmp.model.Code2SessionResponseModel;
+import cn.wmp.model.GetPaidUnionIdRequestModel;
+import cn.wmp.model.GetPaidUnionIdResponseModel;
 import cn.wmp.request.CheckEncryptedDataRequest;
 import cn.wmp.request.Code2SessionRequest;
+import cn.wmp.request.GetPaidUnionIdRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,4 +53,16 @@ public class HttpClientTests {
         httpClient.execute(checkEncryptedDataRequest, new CheckEncryptedDataResponseHandler());
     }
 
+    @Test
+    public void testGetPaidUnionIdRequest() throws IOException {
+        final GetPaidUnionIdRequestModel getPaidUnionIdRequestModel = GetPaidUnionIdRequestModel.builder()
+                .accessToken("")
+                .openId("")
+                .mchId("")
+                .transactionId("")
+                .outTradeNo("")
+                .build();
+        GetPaidUnionIdRequest getPaidUnionIdRequest = new GetPaidUnionIdRequest(getPaidUnionIdRequestModel);
+        httpClient.execute(getPaidUnionIdRequest, new GetPaidUnionIdResponseHandler());
+    }
 }
