@@ -1,14 +1,8 @@
 package cn.wmp.http;
 
-import cn.wmp.handler.CheckEncryptedDataResponseHandler;
-import cn.wmp.handler.Code2SessionResponseHandler;
-import cn.wmp.handler.GetPaidUnionIdResponseHandler;
-import cn.wmp.handler.GetPluginOpenPidResponseHandler;
+import cn.wmp.handler.*;
 import cn.wmp.model.*;
-import cn.wmp.request.CheckEncryptedDataRequest;
-import cn.wmp.request.Code2SessionRequest;
-import cn.wmp.request.GetPaidUnionIdRequest;
-import cn.wmp.request.GetPluginOpenPidRequest;
+import cn.wmp.request.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,5 +67,16 @@ public class HttpClientTests {
                 .build();
         GetPluginOpenPidRequest getPluginOpenPidRequest = new GetPluginOpenPidRequest(getPluginOpenPidRequestModel);
         httpClient.execute(getPluginOpenPidRequest, new GetPluginOpenPidResponseHandler());
+    }
+
+    @Test
+    public void testGetAccessTokenRequest() throws IOException {
+        final GetAccessTokenRequestModel getAccessTokenRequestModel = GetAccessTokenRequestModel.builder()
+                .appId("")
+                .secret("")
+                .grantType("client_credential")
+                .build();
+        GetAccessTokenRequest getAccessTokenRequest = new GetAccessTokenRequest(getAccessTokenRequestModel);
+        httpClient.execute(getAccessTokenRequest, new GetAccessTokenResponseHandler());
     }
 }
