@@ -72,8 +72,8 @@ public class HttpClientTests {
     @Test
     public void testGetAccessTokenRequest() throws IOException {
         final GetAccessTokenRequestModel getAccessTokenRequestModel = GetAccessTokenRequestModel.builder()
-                .appId("")
-                .secret("")
+                .appId("wx1859de02efedecc2")
+                .secret("d6c1d61e1ff3ee233143b4d3a2235829")
                 .grantType("client_credential")
                 .build();
         GetAccessTokenRequest getAccessTokenRequest = new GetAccessTokenRequest(getAccessTokenRequestModel);
